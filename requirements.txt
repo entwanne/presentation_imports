@@ -1,3 +1,4 @@
 notebook==6.*
 rise==5.*
 lucina==1.*
+./fake_distutils
