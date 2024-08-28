@@ -5,6 +5,17 @@
 
 <div align="right"><img src="img/cc_by_sa.svg" style="width: 5em;" /></div>
 
+```python skip
+%%code_wrap modules_cache
+import sys
+__modules = sys.modules.copy()
+__code__
+sys.modules.clear()
+sys.modules.update(__modules)
+del __modules
+__ret__
+```
+
 ## La mécanique des imports
 
 * Comprendre ce qu'il se passe lors d'un import
