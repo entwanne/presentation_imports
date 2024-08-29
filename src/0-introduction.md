@@ -16,6 +16,17 @@ del __modules
 __ret__
 ```
 
+ 
+
+```python skip
+import os
+try:
+    os.mkdir('generated')
+except:
+    pass
+os.chdir('generated')
+```
+
 ## La mécanique des imports
 
 * Comprendre ce qu'il se passe lors d'un import

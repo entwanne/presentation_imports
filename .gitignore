@@ -3,4 +3,5 @@
 *.py[co]
 /.ipynb_checkpoints
 /pres.ipynb
+/generated/
 *.egg-info/
