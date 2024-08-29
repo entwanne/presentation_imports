@@ -19,11 +19,12 @@ __ret__
  
 
 ```python skip
-import os
+import os, shutil
 try:
-    os.mkdir('generated')
+    shutil.rmtree('generated')
 except:
     pass
+shutil.copytree('snippets', 'generated')
 os.chdir('generated')
 ```
 
