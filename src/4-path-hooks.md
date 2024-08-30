@@ -6,9 +6,8 @@
 - `sys.path_hooks` pour ajouter de nouveaux finders
 - `SourceLoader` / `PathEntryFinder`
 - Exemples :
-    - Transformer le texte lu (ROT13, chiffrement)
-    - Étendre la syntaxe de Python (opérateur d'incrémentation)
-    - Compiler depuis d'autres langages (Brainfuck)
+    - Charger du code depuis une archive `.tar.gz`
+    - Importer des modules depuis le réseau (HTTP, RPC)
 
 ## Découverte et chargement de modules
 
