@@ -1,7 +1,7 @@
 import ast
 import importlib
 import importlib.abc
-import importlib.util
+import importlib.machinery
 import pathlib
 import sys
 
@@ -17,8 +17,8 @@ class BrainfuckLoader(importlib.abc.Loader):
         'test': ast.parse('mem.get(cur, 0)').body[0].value,
     }
 
-    def __init__(self, basepath, fullname):
-        self.path = (basepath / fullname).with_suffix('.bf')
+    def __init__(self, fullname, path):
+        self.path = pathlib.Path(path)
 
     def exec_module(self, module):
         content = self.path.read_text()
@@ -60,17 +60,15 @@ class BrainfuckLoader(importlib.abc.Loader):
         exec(code, module.__dict__)
 
 
-class BrainfuckFinder(importlib.abc.MetaPathFinder):
-    def __init__(self, basepath):
-        self.basepath = pathlib.Path(basepath)
-
-    def find_spec(self, fullname, path, target=None):
-        loader = BrainfuckLoader(self.basepath, fullname)
-        if loader.path.exists():
-            return importlib.util.spec_from_loader(fullname, loader)
-
-
-sys.meta_path.append(BrainfuckFinder(''))
+path_hook = importlib.machinery.FileFinder.path_hook(
+    (importlib.machinery.SourceFileLoader, ['.py']),
+    (BrainfuckLoader, ['.bf']),
+)
+sys.path_hooks.insert(0, path_hook)
+sys.path_importer_cache.clear()
 
 import hello
 hello.run()
+
+sys.path_hooks.remove(path_hook)
+sys.path_importer_cache.clear()
