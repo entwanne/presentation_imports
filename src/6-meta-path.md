@@ -8,6 +8,7 @@
     - Les exemples précédents peuvent être réécrits à l'aide d'une entrée dans le meta_path
         - Nécessitant alors de reparcourir les répertoires de sys.path
     - Création de modules à la volée (nom du module qui correspond lui-même à des instructions)
+    - Importer des modules depuis le réseau (HTTP, RPC)
     - Recherche & installation de modules sur pip
 
 ## Étendre la syntaxe Python

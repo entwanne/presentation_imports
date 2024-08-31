@@ -4,10 +4,11 @@
 
 - Mécanisme des finders et loaders
 - `sys.path_hooks` pour ajouter de nouveaux finders
-- `SourceLoader` / `PathEntryFinder`
+- principe des finders et loaders
+    - méthodes requires
+    - `SourceLoader` / `PathEntryFinder`
 - Exemples :
     - Charger du code depuis une archive `.tar.gz`
-    - Importer des modules depuis le réseau (HTTP, RPC)
 
 ## Découverte et chargement de modules
 

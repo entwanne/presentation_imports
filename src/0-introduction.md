@@ -34,6 +34,7 @@ os.chdir('generated')
 * Interférer sur la découverte des modules
 * Modifier le comportement de l'import
 
----
+```python
+```
 
 * <https://github.com/entwanne/presentation_imports>
