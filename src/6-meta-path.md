@@ -10,6 +10,7 @@
     - Création de modules à la volée (nom du module qui correspond lui-même à des instructions)
     - Importer des modules depuis le réseau (HTTP, RPC)
     - Recherche & installation de modules sur pip
+    - https://pypi.org/project/copilot-import/
 
 ## Étendre la syntaxe Python
 
