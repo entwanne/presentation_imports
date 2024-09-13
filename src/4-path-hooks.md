@@ -18,6 +18,8 @@
 
 ## Importer des `.tar.gz`
 
+- Similaire à l'import de zip
+
 ```shell
 %%sh
 tar -xzvOf packages.tar.gz
