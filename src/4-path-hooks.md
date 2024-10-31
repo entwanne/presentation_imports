@@ -63,7 +63,7 @@ module.__dict__.keys()
 - `PathEntryFinder` est un _finder_ dédié pour les entrées de `sys.path`
 
 - `SourceLoader` est un _loader_ offrant de facilités pour importer un fichier source
-    - Un _source loader_ a juste à implémenter des méthodes `get_filename` et `get_data`
+    - Un _source loader_ a juste à implémenter des méthodes `get_filename` et `get_data` (qui renvoie des _bytes_)
 
 ## Importer des `.tar.gz`
 
@@ -124,6 +124,7 @@ class ArchiveLoader(importlib.abc.SourceLoader):
 ## Importer des `.tar.gz`
 
 - Il suffit ensuite de le brancher aux `sys.path_hooks`
+- Python garde en cache les _hooks_ existants et il faut donc penser à nettoyer le cache
 
 ```python
 def archive_path_hook(archive_path):

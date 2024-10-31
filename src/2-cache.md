@@ -19,6 +19,7 @@ sys.modules
 
 - `import_module` stocke aussi son résultat dans le cache
 - Changer le code d'un module à la volée ne permet alors pas de le réimporter
+- À moins d'utiliser `importlib.reload`
 
 ```python
 %%writefile rewrite.py
@@ -28,22 +29,16 @@ def version():
 
 ```python
 import rewrite
-print(rewrite.version())
+print('before', rewrite.version())
 
 with open('rewrite.py', 'w') as f:
     print("def version():\n    return 2", file=f)
 
 import rewrite
-print(rewrite.version())
-```
+print('after', rewrite.version())
 
-## Système de cache
-
-- À moins d'utiliser `importlib.reload`
-
-```python
 importlib.reload(rewrite)
-print(rewrite.version())
+print('reload', rewrite.version())
 ```
 
 ## Système de cache
