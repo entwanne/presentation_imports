@@ -2,8 +2,9 @@
 
 ## Système de cache
 
-- Comme indiqué précédemment, le module importé est mise en cache
-- Cela lui évite d'être rechargé / ré-exécuté à chaque import
+- Mais recharger / réexécuter le module à chaque import serait coûteux
+- Python utilise alors un cache pour se souvenir des modules précédemment importé
+- L'import d'un module déjà présent dans le cache peut alors court-circuiter toute la procédure d'import
 
 ---
 
@@ -20,22 +21,43 @@ sys.modules
 - Changer le code d'un module à la volée ne permet alors pas de le réimporter
 
 ```python
+%%writefile rewrite.py
+def version():
+    return 1
 ```
 
----
-
-- À moins d'utiliser `importlib.reload`
-
 ```python
+import rewrite
+print(rewrite.version())
+
+with open('rewrite.py', 'w') as f:
+    print("def version():\n    return 2", file=f)
+
+import rewrite
+print(rewrite.version())
 ```
 
 ## Système de cache
 
-- Vérification de la présence du module dans le cache `sys.modules`
-- Nettoyer / falsifier le cache
-    - `del sys.modules[...]`
-    - `importlib.reload`
-    - `sys.modules[...] = ...`
+- À moins d'utiliser `importlib.reload`
+
+```python
+importlib.reload(rewrite)
+print(rewrite.version())
+```
+
+## Système de cache
+
+- Ce système de cache nous permet aussi de :
+    - Simplement vérifier qu'un module a déjà été importé
+        - En vérifiant s'il existe dans `sys.modules`
+    - Nettoyer et/ou falsifier le cache en ajoutant des modules à la volée
+
+        ```python
+        del sys.modules[...]
+        importlib.reload(...)
+        sys.modules[...] = ...
+        ```
 
 ## Système de cache
 

@@ -2,17 +2,58 @@
 
 ## Recherche de modules
 
-- Exploration du sys.path pour trouver des répertoires à importer
+- Pour trouver les modules à importer, Python parcourt la liste `sys.path`
+
+```python
+sys.path
+```
 
 ## Ajouter un répertoire
 
-- Modifier `sys.path` pour ajouter des répertoires particuliers
-- -> préférer laisser Python gérer ça et utiliser pip pour placer les paquets dans les répertoires d'installation
+- On peut ainsi ajouter des répertoires dans `sys.path` pour permettre à Python de trouver les modules qui s'y trouvent
+
+```python
+import dir_example
+```
+
+```python
+sys.path.append('subdirectory')
+
+import dir_example
+dir_example.hello('PyConFR')
+```
+
+---
+
+- Mais on préférera laisser Python gérer ça par lui-même et utiliser les répertoires d'installation pour rendre nos modules et paquets accessibles
 
 ## Ajouter un fichier zip
 
-- Création d'un fichier zip contenant un module
-- Ajout du zip au sys.path
-- import du module
+- De la même manière, Python est en mesure d'importer des modules depuis une archive zip
 
-- Distribuer un paquet comme un zip (dans le répertoire courant)
+```shell
+%%sh
+zipinfo -1 packages.zip
+zcat packages.zip
+```
+
+```python
+sys.path.append('packages.zip')
+
+import zip_example
+zip_example.hello('PyConFR')
+```
+
+## Ajouter un fichier zip
+
+- Ce mécanisme permet aussi de distribuer un paquet comme un zip
+
+```shell
+%%sh
+zipinfo calc_program.zip
+```
+
+```shell
+%%sh
+X=3 Y=4 python calc_program.zip
+```

@@ -36,25 +36,75 @@ my_module
 - L'import ne fait pas que charger le module
 - Il en exécute aussi le contenu
 
+---
+
+```python
+%%writefile my_other_module.py
+print('Coucou')
+```
+
+```python
+import my_other_module
+```
+
 ## Import de paquets et sous-modules
 
-- Résolution/import des paquets parents
-    - `import abc.def.ghi` -> `import abc` + `import abc.def` + `import abc.def.ghi`
-    - Exécution des modules `__init__` de chaque paquet
+- Le mécanisme d'importe se charge de résoudre et d'importer les paquets parents
+    - Ainsi importer `foo.spam.eggs` équivaut à importer `foo` puis `foo.spam` et enfin `foo.spam.eggs`
+    - Le module `__init__` de chaque paquet est chargé et exécuté
 
-- Imports relatifs dans des paquets
+## Import de paquets et sous-modules
+
+- Par exemple ici avec une hiérarchie sur 3 niveaux
+
+```python
+%%writefile foo/__init__.py
+print('Import foo')
+```
+
+```python
+%%writefile foo/spam/__init__.py
+print('Import foo.spam')
+```
+
+```python
+%%writefile foo/spam/eggs.py
+print('Coucou')
+```
+
+```python
+import foo.spam.eggs
+```
+
+## Import de paquets et sous-modules
+
+- Les imports relatifs (`.`, `..`, etc.) sont aussi résolus par ce mécanisme
+
+---
+
+```python
+%%writefile foo/spam/increment.py
+def increment(x):
+    return x + 1
+```
+
+```python
+%%writefile foo/spam/relative.py
+from .increment import increment
+
+print(increment(5))
+```
+
+```python
+import foo.spam.relative
+```
 
 ## Étapes de l'import
 
-- Résolution du nom
-    - Pour résoudre les imports relatifs
-    - `importlib.util.resolve_name`
-- Imports des paquets parents
-- Chargement du module
-- Stockage dans le cache
-- Exécution du code du module
-
-## Conseils
-
-- Différence `import abc` / `import abc.def` / `from abc import def`
-    - imports circulaires
+- Pour résumer, l'import se déroule en plusieurs étapes :
+    1. Résolution du nom
+        - Pour résoudre les imports relatifs
+        - `importlib.util.resolve_name`
+    2. Imports récursifs des paquets parents
+    3. Chargement du module
+    4. Exécution du code du module
