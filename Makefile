@@ -4,7 +4,7 @@ SRC = $(shell find src -name "*.md" | sort -n)
 GEN = $(PRES)
 
 $(PRES):	$(SRC)
-		lucina -o $@ $^
+		lucina -o $@ $^ --no-autolaunch
 
 pres:		$(PRES)
 
@@ -14,6 +14,6 @@ clean:
 re:		clean $(GEN)
 
 run:		$(PRES)
-		jupyter-notebook $<
+		jupyter-notebook --browser=firefox $<
 
 .PHONY:		pres clean re run
