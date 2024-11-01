@@ -3,7 +3,7 @@
 ## Découverte et chargement de modules
 
 - Python utilise des _finders_ pour découvrir les modules et des _loaders_ pour les charger
-- `sys.path_hooks` est une liste de callables pour créer un _finder_ pour chaque entrée de `sys.path`
+- `sys.path_hooks` est une liste de callables créant un _finder_ pour chaque entrée de `sys.path`
 
 ```python
 sys.path_hooks
@@ -18,6 +18,10 @@ sys.path_hooks
 ```python
 finder = sys.path_hooks[-1]('.') # Finder sur le répertoire courant
 finder.find_spec('my_module')
+```
+
+```python
+finder.find_spec('not_found')
 ```
 
 ## Découverte et chargement de modules
@@ -63,7 +67,7 @@ module.__dict__.keys()
 - `PathEntryFinder` est un _finder_ dédié pour les entrées de `sys.path`
 
 - `SourceLoader` est un _loader_ offrant de facilités pour importer un fichier source
-    - Un _source loader_ a juste à implémenter des méthodes `get_filename` et `get_data` (qui renvoie des _bytes_)
+    - Un _source loader_ a juste à implémenter des méthodes `get_filename` et `get_data` (qui renvoie le contenu du module sous forme de _bytes_)
 
 ## Importer des `.tar.gz`
 
@@ -76,13 +80,15 @@ tar -xzvOf packages.tar.gz
 ```
 
 ```python
+sys.path.append('packages.tar.gz')
+
 import tar_example
 tar_example.hello('PyConFR')
 ```
 
 ## Importer des `.tar.gz`
 
-- Le _finder_ est un `PathEntryFinder` classique, sans rien de particulier
+- Le _finder_ est un `PathEntryFinder` classique
 
 ```python
 import importlib.abc
@@ -115,7 +121,7 @@ class ArchiveLoader(importlib.abc.SourceLoader):
     def get_data(self, name):
         member = self.archive.getmember(name)
         fobj = self.archive.extractfile(member)
-        return fobj.read().decode()
+        return fobj.read()
 
     def get_filename(self, name):
         return self.filenames[name]
@@ -133,7 +139,6 @@ def archive_path_hook(archive_path):
     raise ImportError
 
 sys.path_hooks.append(archive_path_hook)
-sys.path.append('packages.tar.gz')
 sys.path_importer_cache.clear()
 ```
 

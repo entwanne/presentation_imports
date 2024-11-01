@@ -6,6 +6,7 @@
 
 ```python
 import my_module
+my_module
 ```
 
 ---
@@ -49,7 +50,7 @@ import my_other_module
 
 ## Import de paquets et sous-modules
 
-- Le mécanisme d'importe se charge de résoudre et d'importer les paquets parents
+- Le mécanisme d'import se charge de résoudre et d'importer les paquets parents
     - Ainsi importer `foo.spam.eggs` équivaut à importer `foo` puis `foo.spam` et enfin `foo.spam.eggs`
     - Le module `__init__` de chaque paquet est chargé et exécuté
 
@@ -69,7 +70,7 @@ print('Import foo.spam')
 
 ```python
 %%writefile foo/spam/eggs.py
-print('Coucou')
+print('Import foo.spam.eggs')
 ```
 
 ```python

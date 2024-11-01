@@ -1,10 +1,5 @@
 # Conclusion
 
-## Conclusion
-
-- Le mécanisme d'imports est paramétrable à de multiples niveaux
-- Et permet de tordre Python comme on le veut
-
 ## L'import en bref
 
 - Vue d'ensemble des étapes lors d'un import :
@@ -17,6 +12,11 @@
     7. Exécution du code du module (_loader_)
 
 - <https://docs.python.org/3/library/importlib.html#approximating-importlib-import-module>
+
+## Conclusion
+
+- Le mécanisme d'imports est paramétrable à de multiples niveaux
+- Et permet de tordre Python comme on le veut
 
 ## Liens utiles
 

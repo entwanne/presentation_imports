@@ -3,11 +3,12 @@
 ## Système de cache
 
 - Mais recharger / réexécuter le module à chaque import serait coûteux
-- Python utilise alors un cache pour se souvenir des modules précédemment importé
+- Python utilise alors un cache pour se souvenir des modules précédemment importés
 - L'import d'un module déjà présent dans le cache peut alors court-circuiter toute la procédure d'import
 
 ---
 
+- `import_module` stocke aussi son résultat dans le cache
 - Ce cache est accessible via `sys.modules`
 
 ```python
@@ -17,7 +18,6 @@ sys.modules
 
 ## Système de cache
 
-- `import_module` stocke aussi son résultat dans le cache
 - Changer le code d'un module à la volée ne permet alors pas de le réimporter
 - À moins d'utiliser `importlib.reload`
 

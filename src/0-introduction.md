@@ -26,6 +26,7 @@ except:
     pass
 shutil.copytree('snippets', 'generated')
 os.chdir('generated')
+os.system('pip uninstall -y requests')
 ```
 
 ## La mécanique des imports

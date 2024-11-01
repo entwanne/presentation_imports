@@ -26,7 +26,7 @@ sys.meta_path
 
 ## Imports installables
 
-- On peut imaginer un mécanisme d'import s'assurant qu'un paquet est installé
+- On peut concervoir un mécanisme d'import s'assurant qu'un paquet est installé
 - Pour cela le _finder_ peut faire appel à `pip` afin d'installer un paquet manquant
 
 ---
@@ -43,6 +43,7 @@ class PipFinder(importlib.abc.MetaPathFinder):
         if fullname not in self.allowed_modules:
             return None
 
+        print('Installing', fullname)
         subprocess.run(['pip', 'install', fullname])
 
         return importlib.util.find_spec(fullname)
@@ -50,7 +51,7 @@ class PipFinder(importlib.abc.MetaPathFinder):
 
 ## Imports installables
 
-- On ajoute ensuite le _finder_ au _meta-path_ pour le rendre accessible
+- On ajoute ensuite le _finder_ au _meta-path_ (en dernière position) pour le rendre accessible
 
 ```python
 sys.meta_path.append(PipFinder('requests'))
@@ -97,7 +98,7 @@ class ServerHandler(http.server.BaseHTTPRequestHandler):
 
 ## Imports réseau
 
-- Que l'on lancerait ici dans un _thread_ dédié, mais qu'on pourrait imaginer sur un serveur distant (RPC)
+- Que l'on lancerait ici dans un _thread_ dédié, mais qu'on pourrait imaginer tourner sur un serveur distant (RPC)
 
 ```python
 server = http.server.HTTPServer(('', 8080), ServerHandler)
@@ -203,7 +204,10 @@ print(mod.toto)
 
 ## Autres exemples
 
-- L'ensemble des exemples précédents (_path hooks_, extensions particulières) peuvent être réécrits à l'aide de _meta finders_
-    - Mais ils nécessitent alors que chaque élément se charge de parcourir `sys.path` pour itérer sur les répertoires
+- Les exemples des précédents chapitres (_path hooks_, extensions particulières) peuvent être réécrits à l'aide de _meta finders_
+    - Mais ils nécessitent alors que chaque _finder_ se charge de parcourir `sys.path` pour itérer sur les répertoires
+
+---
+
 - On peut aussi imaginer d'autres manières de générer du code à la volée
     - Import _copilot_ : <https://pypi.org/project/copilot-import/>

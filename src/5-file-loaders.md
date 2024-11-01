@@ -4,7 +4,7 @@
 
 - Le _file finder_ par défaut de Python gère l'import de fichiers `.py`, `.pyc` et `.so`/`.dll`
     - La classe `FileFinder` est pour cela instanciée en lui précisant les extensions supportées et les _loaders_ associés
-    - On peut donc utiliser `FileFinder` pour gérer d'autres extensions de fichiers avec d'autres _loaders_
+    - `FileFinder` permet ainsi de gérer d'autres extensions de fichiers avec d'autres _loaders_
 
 ## Python++
 
@@ -35,7 +35,7 @@ class BetterPythonLoader(importlib.abc.FileLoader):
 
 ## Python++
 
-- La transformation consiste à détecter les `+` enchaînés et à les remplacer par une expression d'incrémentation
+- La transformation consiste à détecter les `+` enchaînés après un nom et à les remplacer par une expression d'incrémentation
 
 ```python
 def transform(tokens):
@@ -79,7 +79,7 @@ def increment_token(token, stack):
 
 ## Python++
 
-- Il suffit alors de configurer un _finder_ lié à ce _loader_
+- Il suffit ensuite de configurer un _finder_ lié à ce _loader_
 
 ```python
 path_hook = importlib.machinery.FileFinder.path_hook(
@@ -109,9 +109,9 @@ increment.test(4)
 ## Transformer le texte lu en entrée
 
 - On peut aussi imaginer vouloir lire (et décoder) des fichiers Python chiffrés
-    - En guise de chiffrement j'utilisera ici du rot-13 🙃
+    - En guise de chiffrement j'utiliserai ici du rot-13 🙃
 
-- On pourra la encore utiliser un `FileLoader`
+- On pourra là encore faire appel à un `FileLoader`
 
 ## Transformer le texte lu en entrée
 
@@ -185,7 +185,7 @@ OPS = {
 
 ## Import brainfuck
 
-- Un _loader_ basqieu qui implémente juste `exec_module`
+- On fournit un _loader_ basique qui implémente juste `exec_module`
 
 ```python
 class BrainfuckLoader(importlib.abc.Loader):
@@ -203,7 +203,7 @@ class BrainfuckLoader(importlib.abc.Loader):
 
 ## Import brainfuck
 
-- Une fonction qui transforme les _tokens_ brainfuck en nœuds AST Python
+- Et une fonction qui transforme les _tokens_ brainfuck en nœuds AST Python
 
 ```python
 def parse_body(content):
@@ -235,7 +235,7 @@ def parse_body(content):
 
 ## Import brainfuck
 
-- Que l'on utilise pour construire un AST de module contenant une fonction, ensuite compilé
+- Que l'on intègre à un AST de module contenant une fonction (`run`), ensuite compilé
 
 ```python
 def parse_tree(body):
@@ -270,7 +270,7 @@ sys.path_importer_cache.clear()
 
 ## Import brainfuck
 
-- Et permet d'importer notre fichier markdown et d'exposer une fonction `run`
+- Et permet d'importer notre fichier markdown et d'en exposer une fonction `run`
 
 ```bf
 %%writefile hello.bf
