@@ -1,0 +1,26 @@
+body {
+    background-color: #F7F7F7 !important;
+    background-image: linear-gradient(rgba(247, 247, 247, 0.8), rgba(247, 247, 247, 0.8)), url("img/background.svg") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+h1, h1 * {
+    color: #cc213a !important;
+    text-decoration: underline;
+    text-decoration-color: #aa213a;
+    text-align: center;
+}
+
+h2, h2 * {
+    color: #cc213a !important;
+}
+
+h3, h3 * {
+    color: #cc213a !important;
+    text-align: center;
+}
+
+[align=right] {
+    margin-right: 5em;
+}
