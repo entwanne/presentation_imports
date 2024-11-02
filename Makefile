@@ -14,6 +14,6 @@ clean:
 re:		clean $(GEN)
 
 run:		$(PRES)
-		jupyter-notebook --browser=firefox $<
+		jupyter-notebook $<
 
 .PHONY:		pres clean re run
